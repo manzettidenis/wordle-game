@@ -14,26 +14,27 @@ export default function Home() {
   const [guesses, setGuesses] = useState(Array(6).fill(null));
   const [currentGuess, setCurrentGuess] = useState("");
   const [isGameOver, setIsGameOver] = useState(false);
-  const [showSolution, setShowSolution] = useState(false);
-
+  const [attempt, setAttempt] = useState(1);
   useEffect(() => {
     const handleTyping = (event: KeyboardEvent) => {
-      if (isGameOver) {return setShowSolution(true)};
-
+      if (isGameOver) {return};
       if (event.key === "Enter") {
-        if (currentGuess.length !== 5) return setIsGameOver(true);
-
+        if (currentGuess.length !== 5) return;
+        setAttempt(attempt+1);
+        
         const newGuesses = [...guesses];
         newGuesses[guesses.findIndex((val) => val == null)] =
-          currentGuess.toUpperCase();
+        currentGuess.toUpperCase();
         setGuesses(newGuesses);
         setCurrentGuess("");
-
+        
         const isCorrrect = solution === currentGuess;
+        if(attempt === 6 && currentGuess.length >= 5 ) return setIsGameOver(true);
         if (isCorrrect) setIsGameOver(true);
       }
       if (event.key === "Backspace") {
         setCurrentGuess(currentGuess.slice(0, -1));
+
         return;
       }
       if (currentGuess.length >= 5) return;
@@ -71,7 +72,7 @@ export default function Home() {
           />
         );
       })}
-      {showSolution && <div className="solution">{solution}</div>}
+      {isGameOver  && <div className="solution">{solution}</div>}
     </div>
   );
 }
