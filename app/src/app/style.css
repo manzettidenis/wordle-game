@@ -1,0 +1,36 @@
+.board {
+  flex-direction: column;
+  gap: 5px;
+  display: flex;
+  background-color: #fff;
+}
+
+.tile {
+  background-color: #fff;
+  width: 30px;
+  height: 30px;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  text-transform: uppercase;
+}
+.line {
+  gap: 5px;
+
+  display: flex;
+}
+
+.correct {
+  background: lightgreen;
+}
+
+.close {
+  background: yellow;
+}
+
+.incorrect {
+  background: lightgray;
+}
